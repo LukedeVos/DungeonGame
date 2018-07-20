@@ -11,6 +11,7 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 public class Main extends Canvas implements Runnable {
+	//test
 
 	private static final long serialVersionUID = 1L;
 	private static final int WIDTH = 960, HEIGHT = WIDTH / 12 * 9 + 20, SCALE = 2;
