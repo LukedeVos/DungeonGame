@@ -158,6 +158,7 @@ public class Main extends Canvas implements Runnable {
 			frame.dispose();
 		}
 		
+		previouslyPressed = false;
 	}
 
 	public void keyReleased(KeyEvent k){
@@ -169,6 +170,9 @@ public class Main extends Canvas implements Runnable {
 		
 		keyR.add(k.getKeyCode());
 		
+		//Add anything that has to be reset here
+		
+		keyR.clear();
 	}
 	
 	public static void main(String args[]){
