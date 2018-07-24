@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 public class BrickPath implements Tile{
 	
-	public int x, y;
+	public double x, y, velX, velY;
 	public boolean visible = true;
 	public Color color = Color.DARK_GRAY;
 	
@@ -14,12 +14,18 @@ public class BrickPath implements Tile{
 		this.y = y;
 	}
 	
+	public void tick(){
+		x += velX;
+		y += velY;
+	}
+	
 	public void render(Graphics g){
 		
 		//TODO Add an actual image
 		g.setColor(color);
-		g.drawRect(x, y, 60, 60);
-		g.fillRect(x, y, 60, 60);
+		g.fillRect((int)x, (int)y, 60, 60);
+		g.setColor(Color.BLACK);
+		g.drawRect((int)x, (int)y, 60, 60);
 	}
 
 	public void collision(){
@@ -33,12 +39,30 @@ public class BrickPath implements Tile{
 			color = Color.DARK_GRAY;
 		}
 	}
-
-	public void setX(int x){
-		this.x = x;
+	
+	public double getX(){
+		return x;
 	}
-
-	public void setY(int y){
+	
+	public double getY(){
+		return y;
+	}
+	
+	public double getVelX(){
+		return velX;
+	}
+	
+	public double getVelY(){
+		return velY;
+	}
+	
+	public void setVel(double velX, double velY){
+		this.velX = velX;
+		this.velY = velY;
+	}
+	
+	public void setCoords(int x, int y){
+		this.x = x;
 		this.y = y;
 	}
 

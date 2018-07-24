@@ -51,6 +51,8 @@ public class Main extends Canvas implements Runnable {
 //		} catch(IOException e){
 //			e.printStackTrace();
 //		}
+		
+		loadMap();
 	}
 	
 	public void start(){
@@ -116,6 +118,13 @@ public class Main extends Canvas implements Runnable {
 	}
 	
 	public void tick(){
+		//Standard map changes
+		for(int x = 0; x < map.length; x++){
+			for(int y = 0; y <  map[0].length; y++){
+				map[x][y].tick();
+			}
+		}
+		
 		p.tick();
 		p.setCoords(getWidth() / 2 - playerSize, getHeight() / 2 - playerSize / 2);
 	}
@@ -132,11 +141,26 @@ public class Main extends Canvas implements Runnable {
 		//////////////////////////////////
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 		
+		//Render the map
+		for(int x = 0; x < map.length; x++){
+			for(int y = 0; y < map[0].length; y++){
+				map[x][y].render(g);
+			}
+		}
+		
 		p.render(g);
 		
 		//////////////////////////////////
 		g.dispose();
 		bs.show();
+	}
+	
+	public void moveMap(double xChange, double yChange){
+		for(int x = 0; x < map.length; x++){
+			for(int y = 0; y < map[0].length; y++){
+				map[x][y].setVel(xChange, yChange);
+			}
+		}
 	}
 	
 	public void keyPressed(KeyEvent k){
@@ -147,8 +171,27 @@ public class Main extends Canvas implements Runnable {
 			}
 		}
 		
+		for(int i = 0; i < keyP.size(); i++){
+			System.out.println(keyP.get(i));
+		}
+		
 		if(!previouslyPressed){
 			keyP.add(k.getKeyCode());
+		}
+		//Add key functions below this
+		
+		//Movement
+		if(keyP.contains(KeyEvent.VK_W)){
+			moveMap(map[0][0].getVelX(), 3);
+		}
+		if(keyP.contains(KeyEvent.VK_A)){
+			moveMap(3, map[0][0].getVelY());
+		}
+		if(keyP.contains(KeyEvent.VK_S)){
+			moveMap(map[0][0].getVelX(), -3);
+		}
+		if(keyP.contains(KeyEvent.VK_D)){
+			moveMap(-3, map[0][0].getVelY());
 		}
 		
 		//Game exit
@@ -171,6 +214,12 @@ public class Main extends Canvas implements Runnable {
 		keyR.add(k.getKeyCode());
 		
 		//Add anything that has to be reset here
+		if(keyR.contains(KeyEvent.VK_W) || keyR.contains(KeyEvent.VK_S)){
+			moveMap(map[0][0].getVelX(), 0);
+		}
+		if(keyR.contains(KeyEvent.VK_A) || keyR.contains(KeyEvent.VK_D)){
+			moveMap(0, map[0][0].getVelY());
+		}
 		
 		keyR.clear();
 	}
