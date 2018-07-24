@@ -10,6 +10,8 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
+import Map.BrickPath;
+import Map.Tile;
 import Player.Character;
 import Player.Pulser;
 
@@ -31,7 +33,10 @@ public class Main extends Canvas implements Runnable {
 	private ArrayList<Integer> keyP = new ArrayList<Integer>();
 	private ArrayList<Integer> keyR = new ArrayList<Integer>();
 	
+	private Tile[][] map = new Tile[50][50];
+	
 	private int frames;
+	private int playerSize = 50;
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	BufferedImageLoader loader = new BufferedImageLoader();
 	
@@ -39,7 +44,7 @@ public class Main extends Canvas implements Runnable {
 		requestFocus();
 		addKeyListener(new KeyInput(this));
 		
-		p = new Pulser(20, 20, 50, 50);
+		p = new Pulser(20, 20, playerSize, playerSize);
 		
 //		try {
 //			
@@ -102,8 +107,17 @@ public class Main extends Canvas implements Runnable {
 		stop();
 	}
 	
+	public void loadMap(){
+		for(int x = 0; x < map.length; x++){
+			for(int y = 0; y < map[0].length; y++){
+				map[x][y] = new BrickPath(x * 60, y * 60);
+			}
+		}
+	}
+	
 	public void tick(){
 		p.tick();
+		p.setCoords(getWidth() / 2 - playerSize, getHeight() / 2 - playerSize / 2);
 	}
 	
 	public void render(){

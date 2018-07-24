@@ -50,4 +50,9 @@ public class Pulser implements Character {
 		this.velY = velY;
 	}
 
+	public void setCoords(int x, int y){
+		this.x = x;
+		this.y = y;
+	}
+
 }
