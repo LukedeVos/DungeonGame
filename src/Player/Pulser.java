@@ -17,8 +17,7 @@ public class Pulser implements Character {
 	}
 	
 	public void tick() {
-		x += velX;
-		y += velY;
+		
 	}
 	
 	public void render(Graphics g) {

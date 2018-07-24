@@ -16,7 +16,6 @@ import Player.Character;
 import Player.Pulser;
 
 public class Main extends Canvas implements Runnable {
-	//test
 
 	private static final long serialVersionUID = 1L;
 	private static final int WIDTH = 960, HEIGHT = WIDTH / 12 * 9 + 20, SCALE = 2;
@@ -200,8 +199,6 @@ public class Main extends Canvas implements Runnable {
 			System.exit(0);
 			frame.dispose();
 		}
-		
-		previouslyPressed = false;
 	}
 
 	public void keyReleased(KeyEvent k){
