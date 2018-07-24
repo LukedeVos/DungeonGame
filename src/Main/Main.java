@@ -10,6 +10,9 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
+import Player.Character;
+import Player.Pulser;
+
 public class Main extends Canvas implements Runnable {
 	//test
 
@@ -24,6 +27,7 @@ public class Main extends Canvas implements Runnable {
 	private Thread thread;
 	Random rand = new Random();
 	
+	public Character p;
 	private ArrayList<Integer> keyP = new ArrayList<Integer>();
 	private ArrayList<Integer> keyR = new ArrayList<Integer>();
 	
@@ -33,6 +37,10 @@ public class Main extends Canvas implements Runnable {
 	
 	public void init(){
 		requestFocus();
+		addKeyListener(new KeyInput(this));
+		
+		p = new Pulser(20, 20, 50, 50);
+		
 //		try {
 //			
 //		} catch(IOException e){
@@ -95,7 +103,7 @@ public class Main extends Canvas implements Runnable {
 	}
 	
 	public void tick(){
-		
+		p.tick();
 	}
 	
 	public void render(){
@@ -109,6 +117,8 @@ public class Main extends Canvas implements Runnable {
 		Graphics g = bs.getDrawGraphics();
 		//////////////////////////////////
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+		
+		p.render(g);
 		
 		//////////////////////////////////
 		g.dispose();
@@ -125,6 +135,13 @@ public class Main extends Canvas implements Runnable {
 		
 		if(!previouslyPressed){
 			keyP.add(k.getKeyCode());
+		}
+		
+		//Game exit
+		if(keyP.contains(KeyEvent.VK_ESCAPE)){
+			frame.setVisible(false);
+			System.exit(0);
+			frame.dispose();
 		}
 		
 	}
