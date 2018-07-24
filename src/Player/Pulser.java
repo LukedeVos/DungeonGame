@@ -22,6 +22,7 @@ public class Pulser implements Character {
 	}
 	
 	public void render(Graphics g) {
+		//TODO Add an actual image
 		g.setColor(Color.WHITE);
 		g.drawRect((int)x, (int)y, width, height);
 		g.fillRect((int)x, (int)y, width, height);
