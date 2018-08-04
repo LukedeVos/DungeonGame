@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 
 import Map.BrickPath;
 import Map.Tile;
+import Map.Wall;
 import Player.Character;
 import Player.Pulser;
 
@@ -111,7 +112,11 @@ public class Main extends Canvas implements Runnable {
 	public void loadMap(){
 		for(int x = 0; x < map.length; x++){
 			for(int y = 0; y < map[0].length; y++){
-				map[x][y] = new BrickPath(x * 60, y * 60);
+				if(x == 0 || x == map.length - 1 || y == 0 || y == map[0].length - 1){
+					map[x][y] = new Wall(x * 60, y * 60);
+				} else {
+					map[x][y] = new BrickPath(x * 60, y * 60);
+				}
 			}
 		}
 	}

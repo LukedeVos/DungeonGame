@@ -2,9 +2,11 @@ package Player;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
-public class Pulser implements Character {
+public class Pulser extends Rectangle implements Character {
 
+	private static final long serialVersionUID = 1L;
 	public double x, y, velX, velY;
 	public int width, height;
 	public boolean abilityReady = true;
@@ -14,9 +16,15 @@ public class Pulser implements Character {
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		
+		this.setBounds(x, y, width, height);
 	}
 	
 	public void tick() {
+		
+	}
+	
+	public void collision(){
 		
 	}
 	
