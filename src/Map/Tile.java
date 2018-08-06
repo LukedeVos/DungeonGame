@@ -5,7 +5,7 @@ import java.awt.Graphics;
 public interface Tile {
 	
 	public void render(Graphics g);
-	public void collision();
+	public boolean collision();
 	public void visible();
 	public void tick();
 	public double getX();

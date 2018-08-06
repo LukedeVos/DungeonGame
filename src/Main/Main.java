@@ -29,11 +29,11 @@ public class Main extends Canvas implements Runnable {
 	private Thread thread;
 	Random rand = new Random();
 	
-	public Character p;
+	public static Character p;
 	private ArrayList<Integer> keyP = new ArrayList<Integer>();
 	private ArrayList<Integer> keyR = new ArrayList<Integer>();
 	
-	private Tile[][] map = new Tile[50][50];
+	public static Tile[][] map = new Tile[50][50];
 	
 	private int frames;
 	private int playerSize = 50;
@@ -160,9 +160,29 @@ public class Main extends Canvas implements Runnable {
 	}
 	
 	public void moveMap(double xChange, double yChange){
+		boolean canMove = true;
+		
 		for(int x = 0; x < map.length; x++){
 			for(int y = 0; y < map[0].length; y++){
-				map[x][y].setVel(xChange, yChange);
+				if(map[x][y].collision()){
+					canMove = false;
+				}
+			}
+		}
+		
+		System.out.println(canMove);
+		
+		if(!canMove){
+			for(int x = 0; x < map.length; x++){
+				for(int y = 0; y < map[0].length; y++){
+					map[x][y].setVel(0, 0);
+				}
+			}
+		} else {
+			for(int x = 0; x < map.length; x++){
+				for(int y = 0; y < map[0].length; y++){
+					map[x][y].setVel(xChange, yChange);
+				}
 			}
 		}
 	}
@@ -175,9 +195,9 @@ public class Main extends Canvas implements Runnable {
 			}
 		}
 		
-		for(int i = 0; i < keyP.size(); i++){
-			System.out.println(keyP.get(i));
-		}
+//		for(int i = 0; i < keyP.size(); i++){
+//			System.out.println(keyP.get(i));
+//		}
 		
 		if(!previouslyPressed){
 			keyP.add(k.getKeyCode());

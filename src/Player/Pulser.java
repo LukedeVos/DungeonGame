@@ -24,8 +24,8 @@ public class Pulser extends Rectangle implements Character {
 		
 	}
 	
-	public void collision(){
-		
+	public Rectangle collision(){
+		return this.getBounds();
 	}
 	
 	public void render(Graphics g) {
@@ -60,6 +60,8 @@ public class Pulser extends Rectangle implements Character {
 	public void setCoords(int x, int y){
 		this.x = x;
 		this.y = y;
+		
+		this.setBounds(x, y, width, height);
 	}
 
 }

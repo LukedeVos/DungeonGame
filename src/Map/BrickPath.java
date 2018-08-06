@@ -28,8 +28,10 @@ public class BrickPath implements Tile{
 		g.drawRect((int)x, (int)y, 60, 60);
 	}
 
-	public void collision(){
+	public boolean collision(){
 		//This Tile does nothing special, this should remain empty
+		
+		return false;
 	}
 
 	public void visible(){
