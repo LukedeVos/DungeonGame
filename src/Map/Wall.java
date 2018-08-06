@@ -69,7 +69,6 @@ public class Wall extends Rectangle implements Tile {
 		//Reset Bounds
 		this.setBounds((int)x, (int)y, size, size);
 		
-		
 		//Returns true if there is an intersection between Player and Wall, returns false otherwise
 		return !(canMoveX && canMoveY);
 	}

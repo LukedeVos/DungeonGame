@@ -33,6 +33,8 @@ public class Main extends Canvas implements Runnable {
 	private ArrayList<Integer> keyP = new ArrayList<Integer>();
 	private ArrayList<Integer> keyR = new ArrayList<Integer>();
 	
+	private double mapVelX, mapVelY;
+	
 	public static Tile[][] map = new Tile[50][50];
 	
 	private int frames;
@@ -129,6 +131,8 @@ public class Main extends Canvas implements Runnable {
 			}
 		}
 		
+		moveMap();
+		
 		p.tick();
 		p.setCoords(getWidth() / 2 - playerSize, getHeight() / 2 - playerSize / 2);
 	}
@@ -159,7 +163,12 @@ public class Main extends Canvas implements Runnable {
 		bs.show();
 	}
 	
-	public void moveMap(double xChange, double yChange){
+	public void move(double xChange, double yChange){
+		this.mapVelX = xChange;
+		this.mapVelY = yChange;
+	}
+	
+	public void moveMap(){
 		boolean canMove = true;
 		
 		for(int x = 0; x < map.length; x++){
@@ -181,7 +190,7 @@ public class Main extends Canvas implements Runnable {
 		} else {
 			for(int x = 0; x < map.length; x++){
 				for(int y = 0; y < map[0].length; y++){
-					map[x][y].setVel(xChange, yChange);
+					map[x][y].setVel(mapVelX, mapVelY);
 				}
 			}
 		}
@@ -206,16 +215,16 @@ public class Main extends Canvas implements Runnable {
 		
 		//Movement
 		if(keyP.contains(KeyEvent.VK_W)){
-			moveMap(map[0][0].getVelX(), 3);
+			move(map[0][0].getVelX(), 3);
 		}
 		if(keyP.contains(KeyEvent.VK_A)){
-			moveMap(3, map[0][0].getVelY());
+			move(3, map[0][0].getVelY());
 		}
 		if(keyP.contains(KeyEvent.VK_S)){
-			moveMap(map[0][0].getVelX(), -3);
+			move(map[0][0].getVelX(), -3);
 		}
 		if(keyP.contains(KeyEvent.VK_D)){
-			moveMap(-3, map[0][0].getVelY());
+			move(-3, map[0][0].getVelY());
 		}
 		
 		//Game exit
@@ -237,10 +246,10 @@ public class Main extends Canvas implements Runnable {
 		
 		//Add anything that has to be reset here
 		if(keyR.contains(KeyEvent.VK_W) || keyR.contains(KeyEvent.VK_S)){
-			moveMap(map[0][0].getVelX(), 0);
+			move(map[0][0].getVelX(), 0);
 		}
 		if(keyR.contains(KeyEvent.VK_A) || keyR.contains(KeyEvent.VK_D)){
-			moveMap(0, map[0][0].getVelY());
+			move(0, map[0][0].getVelY());
 		}
 		
 		keyR.clear();
